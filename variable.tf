@@ -26,3 +26,9 @@ variable "instance_key_name" {
   default     = "aramis_LAB01"
 }
 
+
+variable "tag" {
+  type        = string
+  description = ""
+  default     = "night_sleep"
+}

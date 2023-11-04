@@ -31,7 +31,6 @@ data "aws_ami" "latest_amazon_linux" {
   }
 }
 
-
 # Adicionando um security group somente acesso ao WEB
 resource "aws_security_group" "SG_WEB" {
   name        = "SG_ALB"
@@ -63,16 +62,28 @@ resource "aws_security_group" "SG_WEB" {
 
 
   resource "aws_instance" "EC2_LAB02"{
-    ami = data.aws_ami.latest_amazon_linux.name
+    ami = data.aws_ami.latest_amazon_linux.id
     instance_type = "t2.micro"
-    count = "2"
+    count = "1"
     associate_public_ip_address = true
-    key_name = "LAB_02"
+    key_name = var.instance_key_name
     subnet_id = aws_subnet.Subnet_LAB[count.index].id
     vpc_security_group_ids = [aws_security_group.SG_WEB.id]
     tags = {
-    Name = "EC2_LAB"
+    Name = var.tag
   }
+}
+
+
+
+ resource "aws_instance" "EC2_LAB02_semtag"{
+    ami = data.aws_ami.latest_amazon_linux.id
+    instance_type = "t2.micro"
+    count = "1"
+    associate_public_ip_address = true
+    key_name = var.instance_key_name
+    subnet_id = aws_subnet.Subnet_LAB[count.index].id
+    vpc_security_group_ids = [aws_security_group.SG_WEB.id]
 }
 
 
