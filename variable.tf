@@ -24,3 +24,5 @@ variable "instance_key_name" {
   type        = string
   description = ""
   default     = "aramis_LAB01"
+}
+
