@@ -28,9 +28,21 @@ resource "aws_iam_role_policy_attachment" "lambda_role_policy_attachment" {
 resource "aws_lambda_function" "Lambda_stop" {
   function_name = "stop_bytag_lab02"
   runtime = "python3.8"
-  handler = "lambda_function.lambda_handler"
+  handler = "stop_function.lambda_handler"
   role =  aws_iam_role.lambda_role.arn
   timeout = 10
 
   filename = "stop_function.zip"
+}
+
+
+
+resource "aws_lambda_function" "Lambda_start" {
+  function_name = "start_bytag_lab02"
+  runtime = "python3.8"
+  handler = "start_function.lambda_handler"
+  role =  aws_iam_role.lambda_role.arn
+  timeout = 10
+
+  filename = "start_function.zip"
 }
