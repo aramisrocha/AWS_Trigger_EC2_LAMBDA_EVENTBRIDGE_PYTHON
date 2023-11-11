@@ -10,7 +10,7 @@ variable "network_cidr" {
 
 variable "subnet_count" {
   type    = number
-  default = 2
+  default = 3
 }
 
 

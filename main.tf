@@ -60,11 +60,11 @@ resource "aws_security_group" "SG_WEB" {
   }
 
 
-
+# Instancias EC2 com a tag 
   resource "aws_instance" "EC2_LAB02"{
     ami = data.aws_ami.latest_amazon_linux.id
     instance_type = "t2.micro"
-    count = "1"
+    count = "3"
     associate_public_ip_address = true
     key_name = var.instance_key_name
     subnet_id = aws_subnet.Subnet_LAB[count.index].id
@@ -75,17 +75,7 @@ resource "aws_security_group" "SG_WEB" {
 }
 
 
-
- resource "aws_instance" "EC2_LAB02_semtag"{
-    ami = data.aws_ami.latest_amazon_linux.id
-    instance_type = "t2.micro"
-    count = "1"
-    associate_public_ip_address = true
-    key_name = var.instance_key_name
-    subnet_id = aws_subnet.Subnet_LAB[count.index].id
-    vpc_security_group_ids = [aws_security_group.SG_WEB.id]
-}
-
+# Recursos rede
 
 resource "aws_vpc" "vpc_LAB" {
     cidr_block =  var.network_cidr
@@ -98,3 +88,5 @@ resource "aws_subnet" "Subnet_LAB" {
   cidr_block      = cidrsubnet(var.network_cidr, 8, count.index)
   availability_zone = element(["us-east-2a", "us-east-2b"], count.index % 2)
 }
+
+
